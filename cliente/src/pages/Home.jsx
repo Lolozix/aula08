@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
+import jspdf from 'jspdf';
+import 'jspdf-autotable';
+import { Button } from '@mui/material';
+
 
 export default function Home() {
 
-  const [usuarios, setUsuarios] = useState([]);
+  const [usuario, setUsuarios] = useState([]);
 
   useEffect(() => {
     const buscarUsuario = async () => {
@@ -15,32 +19,58 @@ export default function Home() {
       }
     }
     buscarUsuario();
-  }, [usuarios])
+  }, [usuario])
 
-  const apagar = async (id) => {
+  const deletar = async (id) => {
     try {
 
       await fetch("http://localhost:3000/usuarios" + id, {
         method: 'DELETE',
       });
     } catch {
-      alert("Algo de errado não está certo")
+      alert("Algo deu errado")
     }
   }
 
+  const exportarPDF = () => {
+
+    const doc = new jspdf();
+    const table = usuario.map(usuario => [
+      usuario.nome,
+      usuario.email
+    ]);
+
+    doc.text("Lista de Usuários", 10, 10);
+    doc.autoTable({
+      head: [["Nome", "E-mail"]],
+      body: table
+    });
+
+
+    doc.save("alunosIFMS.pdf");
+  };
+
   return (
     <table>
-      <tr>
-        <td>Nome</td>
-        <td>E-mail</td>
-      </tr>
-      {usuarios.map((usuario) =>
-        <tr key={usuario.id}>
-          <td>{usuario.nome}</td>
-          <td>{usuario.email}</td>
-          <td><button onClick={() => deletar(usuario.id)}> 🗑️ </button></td>
+      <thead>
+        <Button variant="contained" onClick={() => exportarPDF()}>Gerar PDF</Button>
+        <tr>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th>Ações</th>
         </tr>
-      )}
+      </thead>
+      <tbody>
+        {usuario.map((usuario) => (
+          <tr key={usuario.id}>
+            <td>{usuario.nome}</td>
+            <td>{usuario.email}</td>
+            <td>
+              <button onClick={() => removerPessoa(usuario.id)}>🗑️</button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
     </table>
   );
 }

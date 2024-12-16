@@ -67,6 +67,9 @@ export default function Home() {
             <td>{usuario.email}</td>
             <td>
               <button onClick={() => removerPessoa(usuario.id)}>🗑️</button>
+              <Link to={'/Alterar/' + usuario.id}>
+                <button>Alterar</button>
+              </Link>
             </td>
           </tr>
         ))}

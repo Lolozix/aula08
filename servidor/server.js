@@ -5,61 +5,59 @@ const cors = require('cors');
 app.use(express.json());
 app.use(cors());
 
-let usuarios = [];
+let jogosPS5 = [];
 
-app.post('/usuarios', (req, res) => {
-    const { nome, email } = req.body;
+app.post('/jogosPS5', (req, res) => {
+    const { nome} = req.body;
     
-    if (!nome || !email) {
-        return res.status(400).json({ erro: 'Nome e email são obrigatórios' });
+    if (!nomeJogo) {
+        return res.status(400).json({ erro: 'O nome é obrigatório' });
     }
 
-    const novoUsuario = { id: usuarios.length + 1, nome, email };
-    usuarios.push(novoUsuario);
+    const novoJogo = { id: jogosPS5.length + 1, nome};
+    jogosPS5.push(novoJogo);
     
-    res.status(201).json(novoUsuario);
+    res.status(201).json(novojogo);
 });
 
-app.get('/usuarios', (req, res) => {
-    res.status(200).json(usuarios);
+app.get('/jogosPS5', (req, res) => {
+    res.status(200).json(jogosPS5);
 });
 
-app.get('/usuarios/:id', (req, res) => {
+app.get('/jogosPS5/:id', (req, res) => {
     const { id } = req.params;
-    const usuario = usuarios.find(u => u.id === parseInt(id));
+    const jogo = jogosPS5.find(u => u.id === parseInt(id));
     
-    if (!usuario) {
-        return res.status(404).json({ erro: 'Usuário não encontrado' });
+    if (!jogo) {
+        return res.status(404).json({ erro: 'Jogo não encontrado 🙁' });
     }
     
-    res.status(200).json(usuario);
+    res.status(200).json(jogosPS5);
 });
 
-app.put('/usuarios/:id', (req, res) => {
+app.put('/jogosPS5/:id', (req, res) => {
     const { id } = req.params;
-    const { nome, email } = req.body;
     
-    const usuario = usuarios.find(u => u.id === parseInt(id));
+    const jogosPS5 = jogosPS5.find(u => u.id === parseInt(id));
     
-    if (!usuario) {
-        return res.status(404).json({ erro: 'Usuário não encontrado' });
+    if (!jogosPS5) {
+        return res.status(404).json({ erro: 'Jogo não encontrado 🙁' });
     }
     
-    usuario.nome = nome || usuario.nome;
-    usuario.email = email || usuario.email;
+    jogosPS5.nome = nome || jogosPS5.nome;
     
-    res.status(200).json(usuario);
+    res.status(200).json(jogosPS5);
 });
 
-app.delete('/usuarios/:id', (req, res) => {
+app.delete('/jogosPS5/:id', (req, res) => {
     const { id } = req.params;
-    const index = usuarios.findIndex(u => u.id === parseInt(id));
+    const index = jogosPS5.findIndex(u => u.id === parseInt(id));
     
     if (index === -1) {
-        return res.status(404).json({ erro: 'Usuário não encontrado' });
+        return res.status(404).json({ erro: 'Jogo não encontrado 🙁' });
     }
     
-    usuarios.splice(index, 1);
+    jogosPS5.splice(index, 1);
     res.status(204).send();
 });
 

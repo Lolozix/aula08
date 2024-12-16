@@ -10,7 +10,7 @@ let jogosPS5 = [];
 app.post('/jogosPS5', (req, res) => {
     const { nome} = req.body;
     
-    if (!nomeJogo) {
+    if (!nomeJogo || descricaoJogo || dataLancamentoJogo || desenvolvedoresJogo || generojogo || estudiosjogo || seriejogo) {
         return res.status(400).json({ erro: 'O nome é obrigatório' });
     }
 

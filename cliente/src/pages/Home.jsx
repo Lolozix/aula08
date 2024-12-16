@@ -2,78 +2,78 @@ import { useEffect, useState } from "react";
 import jspdf from 'jspdf';
 import 'jspdf-autotable';
 import { Button } from '@mui/material';
-
+import NavBar from '../components/NavBar';
 
 export default function Home() {
-
-  const [usuario, setUsuarios] = useState([]);
+  const [jogoPS5, setJogosPS5] = useState([]);
 
   useEffect(() => {
-    const buscarUsuario = async () => {
+    const buscarJogosPS5 = async () => {
       try {
-        const resposta = await fetch("http://localhost:3000/usuarios");
+        const resposta = await fetch("http://localhost:3000/jogosPS5");
         const dados = await resposta.json();
-        setUsuarios(dados);
+        setJogosPS5(dados);
       } catch {
         alert('Ocorreu um erro no app!');
       }
-    }
-    buscarUsuario();
-  }, [usuario])
+    };
+    buscarJogosPS5();
+  }, []);
 
   const deletar = async (id) => {
     try {
-
-      await fetch("http://localhost:3000/usuarios" + id, {
+      await fetch(`http://localhost:3000/jogosPS5/${id}`, {
         method: 'DELETE',
       });
+      setJogosPS5(jogoPS5.filter((jogo) => jogo.id !== id));
     } catch {
-      alert("Algo deu errado")
+      alert("Algo deu errado");
     }
-  }
+  };
 
   const exportarPDF = () => {
-
     const doc = new jspdf();
-    const table = usuario.map(usuario => [
-      usuario.nome,
-      usuario.email
+    const table = jogoPS5.map((jogo) => [
+      jogo.titulo,
+      jogo.genero
     ]);
 
-    doc.text("Lista de Usuários", 10, 10);
+    doc.text("Lista de Jogos PS5", 10, 10);
     doc.autoTable({
-      head: [["Nome", "E-mail"]],
+      head: [["Título", "Gênero"]],
       body: table
     });
 
-
-    doc.save("alunosIFMS.pdf");
+    doc.save("jogosPS5.pdf");
   };
 
   return (
-    <table>
-      <thead>
-        <Button variant="contained" onClick={() => exportarPDF()}>Gerar PDF</Button>
-        <tr>
-          <th>Nome</th>
-          <th>E-mail</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        {usuario.map((usuario) => (
-          <tr key={usuario.id}>
-            <td>{usuario.nome}</td>
-            <td>{usuario.email}</td>
-            <td>
-              <button onClick={() => removerPessoa(usuario.id)}>🗑️</button>
-              <Link to={'/Alterar/' + usuario.id}>
-                <button>Alterar</button>
-              </Link>
-            </td>
+    <div>
+      <NavBar />
+      <table>
+        <thead>
+          <Button variant="contained" onClick={() => exportarPDF()}>Gerar PDF</Button>
+          <tr>
+            <th>Título</th>
+            <th>Gênero</th>
+            <th>Ações</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {jogoPS5.map((jogo) => (
+            <tr key={jogo.id}>
+              <td>{jogo.titulo}</td>
+              <td>{jogo.genero}</td>
+              <td>
+                <button onClick={() => deletar(jogo.id)}>🗑️</button>
+                <a href={`/Alterar/${jogo.id}`}>
+                  <button>Alterar</button>
+                </a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }

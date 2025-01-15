@@ -1,0 +1,15 @@
+{
+  "name": "aula08",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "react-scripts start"
+  },
+  "dependencies": {
+    "nome-do-pacote": "versão"
+  },
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

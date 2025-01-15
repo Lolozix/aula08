@@ -1,6 +1,7 @@
 {
   "name": "aula08",
   "version": "1.0.0",
+<<<<<<< HEAD
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,4 +14,17 @@
     "@mui/icons-material": "^6.4.0",
     "@mui/material": "^6.4.0"
   }
+=======
+  "scripts": {
+    "dev": "react-scripts start"
+  },
+  "dependencies": {
+    "nome-do-pacote": "versão"
+  },
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+>>>>>>> e2ae360985cb4bf3d4e5e0de0570328c8d80c248
 }

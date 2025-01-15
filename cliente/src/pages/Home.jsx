@@ -53,11 +53,8 @@ export default function Home() {
       <table>
         <thead>
           <Button variant="contained" onClick={() => exportarPDF()}>Gerar PDF</Button>
-          <tr>
-            <th>Título</th>
-            <th>Gênero</th>
-            <th>Ações</th>
-          </tr>
+          <Button variant="contained" onClick={() => exportarTítulo()}>Título</Button>
+          <Button variant="contained" onClick={() => exportarGêneros()}>Gênero</Button>
         </thead>
         <tbody>
           {jogoPS5.map((jogo) => (

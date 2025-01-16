@@ -1,30 +1,21 @@
 {
   "name": "aula08",
   "version": "1.0.0",
-<<<<<<< HEAD
-  "description": "",
+  "description": "Descrição escolhida",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "react-scripts start"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@mui/icons-material": "^6.4.0",
-    "@mui/material": "^6.4.0"
+    "@mui/material": "^6.4.0",
+    "express": "^4.18.2",
+    "nth-check": "^2.0.1",
+    "postcss": "^8.4.31",
+    "react-scripts": "^5.0.1"
   }
-=======
-  "scripts": {
-    "dev": "react-scripts start"
-  },
-  "dependencies": {
-    "nome-do-pacote": "versão"
-  },
-  "description": "",
-  "main": "index.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
->>>>>>> e2ae360985cb4bf3d4e5e0de0570328c8d80c248
 }
